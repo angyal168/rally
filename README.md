@@ -20,6 +20,72 @@ Then type `/rally` in any Claude Code session.
 3. Each agent reads the bus file before major actions and logs what they did after
 4. Conflicts are flagged before they happen
 
+
+<!-- forge-usage:v1 -->
+
+## What it actually does
+
+`/rally` coordinates several Claude Code agents that are open in separate terminals on the
+same project, through one shared markdown file in `/agent-bus/`. There is no daemon, no
+socket, and no server — the coordination substrate is a file every agent can read and append
+to, which is why it works across terminals, machines and restarts.
+
+The first agent to run `/rally` names the mission and creates
+`/agent-bus/YYYY-MM-DD_<mission-name>.md` with a Roster table and a Log. Every later agent
+that runs `/rally` finds the day's rallies, joins one, reads it for context on what the
+others are doing, adds itself to the Roster, and appends a join entry.
+
+## The standing instruction it installs
+
+Joining is not the useful part — staying in sync is. After joining, each agent carries this
+for the rest of its session: **read the rally file before any major action, append a log
+entry after completing significant work.** Entries are capped at 2–4 lines per field so the
+ledger stays readable.
+
+```markdown
+### Agent N | HH:MM
+**Focus:** <current task>
+**Status:** <what just got done or is in progress>
+**Decisions:** <choices that affect other agents>
+**Needs from others:** <specific asks, tagged by agent number>
+**Blockers:** <anything stalled>
+```
+
+## The rules that keep it from rotting
+
+- **Append only.** Never delete or overwrite another agent's entries — the file is a ledger.
+- If a "Needs from others" entry is directed at you, address it before continuing your own work.
+- If two agents are about to touch the same file, flag the conflict in the log *before* proceeding.
+- Keep the file under 500 lines; summarise older entries into a `## Summary` section under
+  the Roster when it gets long.
+
+That third rule is the one that earns the whole thing: the common failure of parallel agents
+is two of them editing the same file with no idea the other exists.
+
+## Usage
+
+```bash
+mkdir -p ~/.claude/commands
+cp rally.md ~/.claude/commands/
+```
+
+Run `/rally` in the first terminal, name the mission, then run `/rally` in each of the others
+and join it.
+
+## When not to use it
+
+- Single-agent work. The bus is overhead with nothing to coordinate.
+- Agents working on genuinely unrelated projects — a shared ledger of unrelated work is noise.
+- As a lock. Rally makes conflicts *visible*; it does not prevent two agents writing the same
+  file. Mutual exclusion takes an actual lock, which this is not.
+
+## Requirements
+
+Claude Code with a `~/.claude/commands/` directory, and a writable `/agent-bus/` path that
+every participating agent can reach.
+
+<!-- /forge-usage:v1 -->
+
 ## Part Of
 
 This command is part of the [Logos Protocol](https://github.com/angyal168/logos-protocol) -- an open protocol for building an AI assistant that actually knows you.
@@ -34,7 +100,7 @@ MIT
 
 This repo is one module. It handles keeping parallel agents coordinated; it does not compose itself into a working system -- that wiring is a separate job.
 
-- **[The Forge Full Stack Bundle for Claude Code](https://andrewhangyal.gumroad.com/l/nlajnm?utm_source=github&utm_medium=readme&utm_campaign=rally)** -- a paid pack of Claude Code commands from the same author ($129).
+- **[The Forge Full Stack Bundle for Claude Code](https://notes.aingyal.com/go/gh-rally/nlajnm/)** -- a paid pack of Claude Code commands from the same author ($129).
 - [All tools, free and paid](https://tools.aingyal.com/?utm_source=github&utm_medium=readme&utm_campaign=rally) -- the full index.
 
 Listed so you can find them if they are useful to you. Nothing here is required to use this repo, which stays free.

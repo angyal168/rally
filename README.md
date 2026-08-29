@@ -100,7 +100,6 @@ alone -- none of them depend on this repo, or on each other.
 - [serious](https://github.com/angyal168/serious) -- Precision mode for Claude Code -- no hype, no ambiguity, only what's true
 - [forge-prompt](https://github.com/angyal168/forge-prompt) -- Prompt coaching for Claude Code -- rates, sharpens, and rewrites your prompts into action-first form
 - [council](https://github.com/angyal168/council) -- AI advisory board for Claude Code -- 6 executive perspectives debate any decision
-- [ouroboros](https://github.com/angyal168/ouroboros) -- Stop prompting. Start specifying
 - [logos-protocol](https://github.com/angyal168/logos-protocol) -- Forge an AI that knows you, remembers, and ascends. Open source, free, yours to imprint
 
 <!-- /forge-siblings:v1 -->

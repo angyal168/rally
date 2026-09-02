@@ -21,6 +21,21 @@ Then type `/rally` in any Claude Code session.
 4. Conflicts are flagged before they happen
 
 
+<!-- forge-plugin-install:v1 -->
+## Install as a Claude Code plugin
+
+One command instead of copying a file:
+
+```
+/plugin marketplace add angyal168/logos-protocol
+/plugin install rally@forge-commands
+```
+
+That installs `/rally` from the `forge-commands` marketplace, which also carries the
+other six free commands. The manual copy above still works and stays supported.
+
+<!-- /forge-plugin-install:v1 -->
+
 <!-- forge-usage:v1 -->
 
 ## What it actually does

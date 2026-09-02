@@ -1,0 +1,17 @@
+{
+  "name": "rally",
+  "version": "1.0.0",
+  "description": "Multi-agent coordination for Claude Code -- keep parallel agents in sync through a shared bus file.",
+  "author": {
+    "name": "angyal168",
+    "url": "https://github.com/angyal168"
+  },
+  "repository": "https://github.com/angyal168/rally",
+  "homepage": "https://notes.aingyal.com/go/plugin-rally/nlajnm/",
+  "keywords": [
+    "claude-code",
+    "slash-command",
+    "rally"
+  ],
+  "license": "MIT"
+}
